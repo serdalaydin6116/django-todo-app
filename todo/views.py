@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Todo
+from .forms import TodoForm
 
 # Create your views here.
 
@@ -16,12 +17,30 @@ def todo_list(request):
     context={
         "todos":todos
     }
-
     return render(request,"todo/todo_list.html",context)
     
 
 def todo_create(request):
-    pass
+    form =TodoForm()
+
+    if request.method =="POST":
+        form =TodoForm(request.POST)
+        if form.is_valid():
+            form.save()
+
+
+    context = {
+        "form" : form
+    }
+
+    return render(request, "todo/todo_add.html", context)
+
+
+
+
+
+
+    
 
 def todo_update(request,id):
     pass
