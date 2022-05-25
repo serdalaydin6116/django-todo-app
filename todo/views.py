@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .models import Todo
 from .forms import TodoForm
@@ -27,6 +27,7 @@ def todo_create(request):
         form =TodoForm(request.POST)
         if form.is_valid():
             form.save()
+            return redirect("list")
 
 
     context = {
@@ -35,15 +36,17 @@ def todo_create(request):
 
     return render(request, "todo/todo_add.html", context)
 
+    
+
+def todo_update(request,id):
+
+
 
 
 
 
 
     
-
-def todo_update(request,id):
-    pass
 
 def todo_delete(request,id):
     pass
